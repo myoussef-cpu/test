@@ -1,0 +1,56 @@
+{
+    "passwords": {
+        "math": {
+            "grade1": { "class1": "youssef11", "class2": "youssef12", "class3": "math_grade1_class3", "class4": "math_grade1_class4", "class5": "math_grade1_class5", "class6": "math_grade1_class6" },
+            "grade2": { "class1": "math_grade2_class1", "class2": "math_grade2_class2", "class3": "math_grade2_class3", "class4": "math_grade2_class4", "class5": "math_grade2_class5", "class6": "math_grade2_class6" },
+            "grade3": { "class1": "math_grade3_class1", "class2": "math_grade3_class2", "class3": "math_grade3_class3", "class4": "math_grade3_class4", "class5": "math_grade3_class5", "class6": "math_grade3_class6" }
+        },
+        "science": {
+            "grade1": { "class1": "science_grade1_class1", "class2": "science_grade1_class2", "class3": "science_grade1_class3", "class4": "science_grade1_class4", "class5": "science_grade1_class5", "class6": "science_grade1_class6" },
+            "grade2": { "class1": "science_grade2_class1", "class2": "science_grade2_class2", "class3": "science_grade2_class3", "class4": "science_grade2_class4", "class5": "science_grade2_class5", "class6": "science_grade2_class6" },
+            "grade3": { "class1": "science_grade3_class1", "class2": "science_grade3_class2", "class3": "science_grade3_class3", "class4": "science_grade3_class4", "class5": "science_grade3_class5", "class6": "science_grade3_class6" }
+        },
+        "arabic": {
+            "grade1": { "class1": "reham11", "class2": "reham12", "class3": "arabic_grade1_class3", "class4": "arabic_grade1_class4", "class5": "arabic_grade1_class5", "class6": "arabic_grade1_class6" },
+            "grade2": { "class1": "arabic_grade2_class1", "class2": "arabic_grade2_class2", "class3": "arabic_grade2_class3", "class4": "arabic_grade2_class4", "class5": "arabic_grade2_class5", "class6": "arabic_grade2_class6" },
+            "grade3": { "class1": "arabic_grade3_class1", "class2": "arabic_grade3_class2", "class3": "arabic_grade3_class3", "class4": "arabic_grade3_class4", "class5": "arabic_grade3_class5", "class6": "arabic_grade3_class6" }
+        },
+        "english": {
+            "grade1": { "class1": "english_grade1_class1", "class2": "english_grade1_class2", "class3": "english_grade1_class3", "class4": "english_grade1_class4", "class5": "english_grade1_class5", "class6": "english_grade1_class6" },
+            "grade2": { "class1": "english_grade2_class1", "class2": "english_grade2_class2", "class3": "english_grade2_class3", "class4": "english_grade2_class4", "class5": "english_grade2_class5", "class6": "english_grade2_class6" },
+            "grade3": { "class1": "english_grade3_class1", "class2": "english_grade3_class2", "class3": "english_grade3_class3", "class4": "english_grade3_class4", "class5": "english_grade3_class5", "class6": "english_grade3_class6" }
+        },
+        "social": {
+            "grade1": { "class1": "social_grade1_class1", "class2": "social_grade1_class2", "class3": "social_grade1_class3", "class4": "social_grade1_class4", "class5": "social_grade1_class5", "class6": "social_grade1_class6" },
+            "grade2": { "class1": "social_grade2_class1", "class2": "social_grade2_class2", "class3": "social_grade2_class3", "class4": "social_grade2_class4", "class5": "social_grade2_class5", "class6": "social_grade2_class6" },
+            "grade3": { "class1": "social_grade3_class1", "class2": "social_grade3_class2", "class3": "social_grade3_class3", "class4": "social_grade3_class4", "class5": "social_grade3_class5", "class6": "social_grade3_class6" }
+        }
+    },
+    "googleDriveLinks": {
+        "math": {
+            "grade1": { "class1": "https://docs.google.com/spreadsheets/d/1TYAWxYaSDB7kxMb_07_O6iM_UbkZsv-y/edit?usp=sharing&ouid=112437336409989262670&rtpof=true&sd=true", "class2": "https://drive.google.com/file/d/1A2B3C4D5E6F7G8H9I0K/preview", "class3": "https://drive.google.com/file/d/1A2B3C4D5E6F7G8H9I0L/preview", "class4": "https://drive.google.com/file/d/1A2B3C4D5E6F7G8H9I0M/preview", "class5": "https://drive.google.com/file/d/1A2B3C4D5E6F7G8H9I0N/preview", "class6": "https://drive.google.com/file/d/1A2B3C4D5E6F7G8H9I0O/preview" },
+            "grade2": { "class1": "https://drive.google.com/file/d/2A2B3C4D5E6F7G8H9I0J/preview", "class2": "https://drive.google.com/file/d/2A2B3C4D5E6F7G8H9I0K/preview", "class3": "https://drive.google.com/file/d/2A2B3C4D5E6F7G8H9I0L/preview", "class4": "https://drive.google.com/file/d/2A2B3C4D5E6F7G8H9I0M/preview", "class5": "https://drive.google.com/file/d/2A2B3C4D5E6F7G8H9I0N/preview", "class6": "https://drive.google.com/file/d/2A2B3C4D5E6F7G8H9I0O/preview" },
+            "grade3": { "class1": "https://drive.google.com/file/d/3A2B3C4D5E6F7G8H9I0J/preview", "class2": "https://drive.google.com/file/d/3A2B3C4D5E6F7G8H9I0K/preview", "class3": "https://drive.google.com/file/d/3A2B3C4D5E6F7G8H9I0L/preview", "class4": "https://drive.google.com/file/d/3A2B3C4D5E6F7G8H9I0M/preview", "class5": "https://drive.google.com/file/d/3A2B3C4D5E6F7G8H9I0N/preview", "class6": "https://drive.google.com/file/d/3A2B3C4D5E6F7G8H9I0O/preview" }
+        },
+        "science": {
+            "grade1": { "class1": "https://drive.google.com/file/d/4A2B3C4D5E6F7G8H9I0J/preview", "class2": "https://drive.google.com/file/d/4A2B3C4D5E6F7G8H9I0K/preview", "class3": "https://drive.google.com/file/d/4A2B3C4D5E6F7G8H9I0L/preview", "class4": "https://drive.google.com/file/d/4A2B3C4D5E6F7G8H9I0M/preview", "class5": "https://drive.google.com/file/d/4A2B3C4D5E6F7G8H9I0N/preview", "class6": "https://drive.google.com/file/d/4A2B3C4D5E6F7G8H9I0O/preview" },
+            "grade2": { "class1": "https://drive.google.com/file/d/5A2B3C4D5E6F7G8H9I0J/preview", "class2": "https://drive.google.com/file/d/5A2B3C4D5E6F7G8H9I0K/preview", "class3": "https://drive.google.com/file/d/5A2B3C4D5E6F7G8H9I0L/preview", "class4": "https://drive.google.com/file/d/5A2B3C4D5E6F7G8H9I0M/preview", "class5": "https://drive.google.com/file/d/5A2B3C4D5E6F7G8H9I0N/preview", "class6": "https://drive.google.com/file/d/5A2B3C4D5E6F7G8H9I0O/preview" },
+            "grade3": { "class1": "https://drive.google.com/file/d/6A2B3C4D5E6F7G8H9I0J/preview", "class2": "https://drive.google.com/file/d/6A2B3C4D5E6F7G8H9I0K/preview", "class3": "https://drive.google.com/file/d/6A2B3C4D5E6F7G8H9I0L/preview", "class4": "https://drive.google.com/file/d/6A2B3C4D5E6F7G8H9I0M/preview", "class5": "https://drive.google.com/file/d/6A2B3C4D5E6F7G8H9I0N/preview", "class6": "https://drive.google.com/file/d/6A2B3C4D5E6F7G8H9I0O/preview" }
+        },
+        "arabic": {
+            "grade1": { "class1": "https://drive.google.com/file/d/7A2B3C4D5E6F7G8H9I0J/preview", "class2": "https://drive.google.com/file/d/7A2B3C4D5E6F7G8H9I0K/preview", "class3": "https://drive.google.com/file/d/7A2B3C4D5E6F7G8H9I0L/preview", "class4": "https://drive.google.com/file/d/7A2B3C4D5E6F7G8H9I0M/preview", "class5": "https://drive.google.com/file/d/7A2B3C4D5E6F7G8H9I0N/preview", "class6": "https://drive.google.com/file/d/7A2B3C4D5E6F7G8H9I0O/preview" },
+            "grade2": { "class1": "https://drive.google.com/file/d/8A2B3C4D5E6F7G8H9I0J/preview", "class2": "https://drive.google.com/file/d/8A2B3C4D5E6F7G8H9I0K/preview", "class3": "https://drive.google.com/file/d/8A2B3C4D5E6F7G8H9I0L/preview", "class4": "https://drive.google.com/file/d/8A2B3C4D5E6F7G8H9I0M/preview", "class5": "https://drive.google.com/file/d/8A2B3C4D5E6F7G8H9I0N/preview", "class6": "https://drive.google.com/file/d/8A2B3C4D5E6F7G8H9I0O/preview" },
+            "grade3": { "class1": "https://drive.google.com/file/d/9A2B3C4D5E6F7G8H9I0J/preview", "class2": "https://drive.google.com/file/d/9A2B3C4D5E6F7G8H9I0K/preview", "class3": "https://drive.google.com/file/d/9A2B3C4D5E6F7G8H9I0L/preview", "class4": "https://drive.google.com/file/d/9A2B3C4D5E6F7G8H9I0M/preview", "class5": "https://drive.google.com/file/d/9A2B3C4D5E6F7G8H9I0N/preview", "class6": "https://drive.google.com/file/d/9A2B3C4D5E6F7G8H9I0O/preview" }
+        },
+        "english": {
+            "grade1": { "class1": "https://drive.google.com/file/d/10A2B3C4D5E6F7G8H9I0J/preview", "class2": "https://drive.google.com/file/d/10A2B3C4D5E6F7G8H9I0K/preview", "class3": "https://drive.google.com/file/d/10A2B3C4D5E6F7G8H9I0L/preview", "class4": "https://drive.google.com/file/d/10A2B3C4D5E6F7G8H9I0M/preview", "class5": "https://drive.google.com/file/d/10A2B3C4D5E6F7G8H9I0N/preview", "class6": "https://drive.google.com/file/d/10A2B3C4D5E6F7G8H9I0O/preview" },
+            "grade2": { "class1": "https://drive.google.com/file/d/11A2B3C4D5E6F7G8H9I0J/preview", "class2": "https://drive.google.com/file/d/11A2B3C4D5E6F7G8H9I0K/preview", "class3": "https://drive.google.com/file/d/11A2B3C4D5E6F7G8H9I0L/preview", "class4": "https://drive.google.com/file/d/11A2B3C4D5E6F7G8H9I0M/preview", "class5": "https://drive.google.com/file/d/11A2B3C4D5E6F7G8H9I0N/preview", "class6": "https://drive.google.com/file/d/11A2B3C4D5E6F7G8H9I0O/preview" },
+            "grade3": { "class1": "https://drive.google.com/file/d/12A2B3C4D5E6F7G8H9I0J/preview", "class2": "https://drive.google.com/file/d/12A2B3C4D5E6F7G8H9I0K/preview", "class3": "https://drive.google.com/file/d/12A2B3C4D5E6F7G8H9I0L/preview", "class4": "https://drive.google.com/file/d/12A2B3C4D5E6F7G8H9I0M/preview", "class5": "https://drive.google.com/file/d/12A2B3C4D5E6F7G8H9I0N/preview", "class6": "https://drive.google.com/file/d/12A2B3C4D5E6F7G8H9I0O/preview" }
+        },
+        "social": {
+            "grade1": { "class1": "https://drive.google.com/file/d/13A2B3C4D5E6F7G8H9I0J/preview", "class2": "https://drive.google.com/file/d/13A2B3C4D5E6F7G8H9I0K/preview", "class3": "https://drive.google.com/file/d/13A2B3C4D5E6F7G8H9I0L/preview", "class4": "https://drive.google.com/file/d/13A2B3C4D5E6F7G8H9I0M/preview", "class5": "https://drive.google.com/file/d/13A2B3C4D5E6F7G8H9I0N/preview", "class6": "https://drive.google.com/file/d/13A2B3C4D5E6F7G8H9I0O/preview" },
+            "grade2": { "class1": "https://drive.google.com/file/d/14A2B3C4D5E6F7G8H9I0J/preview", "class2": "https://drive.google.com/file/d/14A2B3C4D5E6F7G8H9I0K/preview", "class3": "https://drive.google.com/file/d/14A2B3C4D5E6F7G8H9I0L/preview", "class4": "https://drive.google.com/file/d/14A2B3C4D5E6F7G8H9I0M/preview", "class5": "https://drive.google.com/file/d/14A2B3C4D5E6F7G8H9I0N/preview", "class6": "https://drive.google.com/file/d/14A2B3C4D5E6F7G8H9I0O/preview" },
+            "grade3": { "class1": "https://drive.google.com/file/d/15A2B3C4D5E6F7G8H9I0J/preview", "class2": "https://drive.google.com/file/d/15A2B3C4D5E6F7G8H9I0K/preview", "class3": "https://drive.google.com/file/d/15A2B3C4D5E6F7G8H9I0L/preview", "class4": "https://drive.google.com/file/d/15A2B3C4D5E6F7G8H9I0M/preview", "class5": "https://drive.google.com/file/d/15A2B3C4D5E6F7G8H9I0N/preview", "class6": "https://drive.google.com/file/d/15A2B3C4D5E6F7G8H9I0O/preview" }
+        }
+    }
+}
