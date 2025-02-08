@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نتائج الطلاب - مدرسة النصر الإعدادية ك 15</title>
+    <!-- مكتبة Animate.css للرسوم المتحركة -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Font Awesome للرموز -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* CSS هنا */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            direction: rtl; /* إضافة اتجاه النص */
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #fff;
+            animation: zoomIn 2s ease-in-out, fadeOut 1s ease-in-out 2s forwards;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            animation: fadeInDown 1s;
+            display: none; /* يخفي المحتوى حتى يظهر الشعار */
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 2.5rem;
+            animation: fadeIn 1s;
+        }
+
+        .class-selection {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .class-selection button {
+            padding: 12px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .class-selection button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: #28a745;
+            outline: none;
+        }
+
+        .search-box button {
+            padding: 12px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .search-box button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s;
+        }
+
+        .result p {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+            animation: shake 0.5s;
+        }
+
+        .student-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            animation: fadeIn 0.5s;
+        }
+
+        .student-card .info {
+            flex: 1;
+            text-align: right;
+        }
+
+        .student-card .info h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .student-card .info p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .loading-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #ddd;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 10px;
+            display: none;
+            position: relative;
+        }
+
+        .loading-bar .progress {
+            width: 0;
+            height: 100%;
+            background-color: #28a745;
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        .loading-bar .percentage {
+            position: absolute;
+            right: 0;
+            top: -20px;
+            font-size: 0.8rem;
+            color: #333;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                display: none;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- شعار الموقع -->
+    <div class="logo animate__animated animate__zoomIn">
+        مدرسة النصر الإعدادية ك 15
+    </div>
+
+    <!-- محتوى الموقع -->
+    <div class="container">
+        <h1><i class="fas fa-graduation-cap"></i> نتائج الطلاب</h1>
+        <div class="class-selection">
+            <button onclick="loadClass('first')">الصف الأول الإعدادي</button>
+            <button onclick="loadClass('second')">الصف الثاني الإعدادي</button>
+            <button onclick="loadClass('third')">الصف الثالث الإعدادي</button>
+        </div>
+        <div id="searchPage" style="display: none;">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="ادخل رقم الجلوس">
+                <button onclick="searchStudent()"><i class="fas fa-search"></i> بحث</button>
+            </div>
+            <div class="loading-bar" id="loadingBar">
+                <div class="progress"></div>
+                <div class="percentage" id="percentage">0%</div>
+            </div>
+            <div id="result" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        // دالة لتحميل ملف CSV
+        async function loadCSV(file) {
+            const response = await fetch(file); // تأكد من وضع الملف في نفس المجلد
+            const data = await response.text();
+            return data;
+        }
+
+        // دالة لتحويل CSV إلى مصفوفة من الكائنات
+        function parseCSV(csvData) {
+            const rows = csvData.split('\n');
+            const headers = rows[0].split(',');
+
+            const students = [];
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i].split(',');
+                if (row.length === headers.length) {
+                    const student = {};
+                    for (let j = 0; j < headers.length; j++) {
+                        student[headers[j].trim()] = row[j].trim();
+                    }
+                    students.push(student);
+                }
+            }
+            return students;
+        }
+
+        let currentStudents = [];
+
+        // دالة لتحميل بيانات الصف
+        async function loadClass(className) {
+            const file = `${className}.csv`;
+            const csvData = await loadCSV(file);
+            currentStudents = parseCSV(csvData);
+
+            // إظهار رسوم متحركة وتأثيرات بصرية
+            document.querySelector('.class-selection').classList.add('animate__animated', 'animate__fadeOut');
+            setTimeout(() => {
+                document.querySelector('.class-selection').style.display = 'none';
+                document.getElementById('searchPage').style.display = 'block';
+                document.getElementById('searchPage').classList.add('animate__animated', 'animate__fadeIn');
+            }, 500); // تأخير 500 مللي ثانية
+        }
+
+        // دالة البحث
+        async function searchStudent() {
+            const searchValue = document.getElementById('searchInput').value.trim();
+            const resultDiv = document.getElementById('result');
+            const loadingBar = document.getElementById('loadingBar');
+            const progress = loadingBar.querySelector('.progress');
+            const percentage = document.getElementById('percentage');
+
+            if (!searchValue) {
+                resultDiv.innerHTML = `<p class="error"><i class="fas fa-exclamation-circle"></i> يرجى إدخال رقم الجلوس.</p>`;
+                return;
+            }
+
+            // إظهار شريط التحميل
+            loadingBar.style.display = 'block';
+            progress.style.width = '0';
+            percentage.textContent = '0%';
+
+            // محاكاة تحميل البيانات
+            let progressValue = 0;
+            const interval = setInterval(() => {
+                progressValue += 10;
+                progress.style.width = `${progressValue}%`;
+                percentage.textContent = `${progressValue}%`;
+                if (progressValue >= 100) {
+                    clearInterval(interval);
+                }
+            }, 100);
+
+            // محاكاة تأخير لمدة ثانية
+            setTimeout(() => {
+                const student = currentStudents.find(s => s.seat === searchValue);
+
+                if (student) {
+                    resultDiv.innerHTML = `
+                        <div class="student-card animate__animated animate__fadeIn">
+                            <div class="info">
+                                <h3>${student.name}</h3>
+                                <p>رقم الجلوس: ${student.seat} - النتيجة: ${student.result}</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<p class="error animate__animated animate__shakeX"><i class="fas fa-times-circle"></i> لا توجد نتيجة مطابقة لرقم الجلوس المدخل.</p>`;
+                }
+
+                // إخفاء شريط التحميل
+                loadingBar.style.display = 'none';
+            }, 1000);
+        }
+
+        // إظهار المحتوى بعد انتهاء رسوم الشعار
+        setTimeout(() => {
+            document.querySelector('.logo').style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
+        }, 3000); // 3 ثواني
+    </script>
+</body>
+</html>

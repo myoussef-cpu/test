@@ -1,0 +1,1047 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة شؤون الطلاب</title>
+    <meta name="description" content="منصة شؤون الطلاب - نظام متكامل لاداة شؤون الطلاب ورصد الدرجات وتسجيل الغياب وتصدير البيانات">
+    <meta name="keywords" content="رصد أعمال السنة, ملفات Excel, تعليم, تسجيل درجات, نظام أكاديمي">
+    <meta name="author" content="يوسف عيد الزغبي">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://myoussef-cpu.github.io/Students/">
+    <!-- Font Awesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* التصميم العام */
+        :root {
+            --theme-color: #2d23bd;
+        }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            direction: rtl;
+            text-align: right;
+            animation: fadeIn 1s ease-in-out;
+            overflow-x: hidden; /* منع التمرير الأفقي للصفحة */
+        }
+
+        /* التصميم العام للرأس */
+        header {
+            background: linear-gradient(135deg, var(--theme-color), #6e569b);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: slideDown 0.8s ease-in-out;
+            position: relative;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        /* أيقونة الإعدادات */
+        .settings-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .settings-icon:hover {
+            transform: rotate(90deg);
+        }
+
+        /* التصميم العام للتنقل */
+        nav {
+            display: flex;
+            justify-content: center;
+            background: linear-gradient(135deg, #78639e, var(--theme-color));
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: slideUp 1.8s ease-in-out;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: rgb(245, 242, 242);
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 0.8rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        nav a i {
+            margin-left: 5px;
+        }
+
+        nav a:hover {
+            background-color: rgba(3, 3, 3, 0.1);
+            transform: translateY(-3px);
+        }
+
+        nav a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #eedf09;
+        }
+
+        /* التصميم العام للصفحات */
+        .page {
+            display: none;
+            padding: 20px;
+            max-width: 100%; /* التأكد من أن الصفحة لا تتجاوز عرض الشاشة */
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* التصميم العام للأزرار */
+        button {
+            display: block;
+            width: 90%; /* زيادة العرض لتتناسب مع الصفحة */
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 12px 20px;
+            background-color: var(--theme-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #208a30;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* التصميم العام للجداول */
+        .table-container {
+            width: 100%;
+            overflow-x: auto; /* التمرير الأفقي للجداول */
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px; /* الحد الأدنى لعرض الجدول */
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px 10px; /* تصغير padding للخلايا */
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        th {
+            background-color: var(--theme-color);
+            color: white;
+            position: sticky;
+            top: 0; /* تثبيت الهيدر عند التمرير */
+            z-index: 1;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        td:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* تحسين مظهر checkboxes */
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--theme-color); /* لون الخانة */
+        }
+
+        /* تحسين مظهر الخلايا */
+        td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /* التصميم العام للنماذج */
+        input[type="file"], input[type="text"] {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 90%; /* زيادة العرض لتتناسب مع الصفحة */
+            max-width: 400px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="file"]:focus, input[type="text"]:focus {
+            border-color: var(--theme-color);
+            box-shadow: 0 0 8px rgba(45, 35, 189, 0.3);
+        }
+
+        /* التصميم العام للتذييل */
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #777;
+            animation: fadeIn 1.5s ease-in-out;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* الرسوم المتحركة */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* التصميم الخاص بالصفحة الرئيسية */
+        #home img {
+            display: block;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 100%; /* التأكد من أن الصورة لا تتجاوز عرض الصفحة */
+            height: auto;
+            animation: zoomIn 1s ease-in-out;
+        }
+
+        #home p {
+            text-align: center;
+            margin: 20px auto;
+            max-width: 90%; /* التأكد من أن النص لا يتجاوز عرض الصفحة */
+        }
+
+        /* التصميم الخاص بصفحة التعليمات */
+        #instructions ol {
+            padding-right: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 90%; /* التأكد من أن النص لا يتجاوز عرض الصفحة */
+            margin: 20px auto;
+        }
+
+        #instructions ol li {
+            margin: 10px 0;
+        }
+
+        /* تصميم أيقونة واتساب */
+        .whatsapp-icon {
+            color: #25D366;
+            font-size: 1.5rem;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp-icon:hover {
+            transform: scale(1.2);
+        }
+
+        /* التصميم الخاص بصفحة الإعدادات */
+        #settings {
+            max-width: 100%; /* التأكد من أن الصفحة لا تتجاوز عرض الشاشة */
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        #settings label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        #settings select, #settings input[type="color"] {
+            width: 90%; /* زيادة العرض لتتناسب مع الصفحة */
+            max-width: 400px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        #settings button {
+            width: 90%; /* زيادة العرض لتتناسب مع الصفحة */
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 12px 20px;
+            background-color: var(--theme-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #settings button:hover {
+            background-color: #208a30;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* تصميم أزرار الإعدادات */
+        .settings-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .settings-buttons button {
+            width: 48%;
+            margin: 0;
+        }
+
+        /* تصميم البحث السريع */
+        #searchInput {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        /* Media Query للهواتف */
+        @media (max-width: 768px) {
+            nav {
+                flex-wrap: wrap; /* السماح للعناصر بالانتقال إلى سطر جديد */
+            }
+
+            nav a {
+                flex: 1 1 45%; /* جعل العناصر تأخذ 45% من العرض */
+                margin: 5px;
+                font-size: 1rem; /* تصغير حجم الخط */
+                text-align: center;
+            }
+
+            nav a i {
+                margin-left: 0; /* إزالة الهامش الأيسر للأيقونات */
+                margin-right: 5px; /* إضافة هامش أيمن للأيقونات */
+            }
+
+            header h1 {
+                font-size: 1.8rem; /* تصغير حجم العنوان */
+            }
+
+            .page {
+                padding: 10px; /* تقليل الهامش الداخلي للصفحات */
+            }
+
+            button {
+                width: 100%; /* جعل الأزرار تأخذ العرض الكامل */
+                max-width: none;
+            }
+
+            input[type="file"], input[type="text"] {
+                width: 100%; /* جعل حقول الإدخال تأخذ العرض الكامل */
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <i class="fas fa-cog settings-icon" onclick="showPage('settings')"></i>
+        <h1 id="title">منصة شؤون الطلاب</h1>
+    </header>
+    <nav>
+        <a onclick="showPage('home')" class="nav-link active">
+            <i class="fas fa-home"></i> <span id="homeLinkText">الرئيسية</span>
+        </a>
+        <a onclick="showPage('files')" class="nav-link">
+            <i class="fas fa-file"></i> <span id="filesLinkText">الملفات</span>
+        </a>
+        <a onclick="showPage('data')" class="nav-link">
+            <i class="fas fa-table"></i> <span id="dataLinkText">رصد الدرجات</span>
+        </a>
+        <a onclick="showPage('attendance')" class="nav-link">
+            <i class="fas fa-calendar-check"></i> <span id="attendanceLinkText">الحضور والغياب</span>
+        </a>
+         <a onclick="showPageAndRedirect('google')" class="nav-link">
+    <i class="fas fa-info-circle"></i> <span id="googleLinkText">رصد الدرجات عبر Google Drive</span>
+       </a>
+       <a href="schedule.html"><i class="fas fa-info-circle"></i> الجداول المدرسية</a>
+       <a href="result.html"><i class="fas fa-info-circle"></i> نتائج الامتحانات</a>
+        <a onclick="showPage('instructions')" class="nav-link">
+            <i class="fas fa-info-circle"></i> <span id="instructionsLinkText">التعليمات</span>
+        </a>
+   </a>
+    </nav>
+
+    <!-- الصفحة الرئيسية -->
+    <div id="home" class="page active">
+        <h2 id="homeTitle">مرحبا بكم في منصة شؤون الطلاب</h2>
+        <img src="https://upload.wikimedia.org/wikipedia/ar/8/81/Ministry_of_Education_%28Egypt%29_logo_%28wikiar%29.png" alt="وزارة التربية والتعليم">
+        <p id="homeDescription">منصة شؤون الطلاب هي نظام متكامل لإدارة شؤون الطلاب ورصد الدرجات وتصدير البيانات بسهولة.</p>
+        <button onclick="showPage('files')" id="browseFilesButton">تصفح الملفات</button>
+    </div>
+
+    <!-- صفحة الملفات -->
+    <div id="files" class="page">
+        <h2 id="filesTitle">قائمة الملفات المتاحة</h2>
+        <ul>
+            <li><a href="https://github.com/myoussef-cpu/My-website/blob/96ded9975690b9982a4e9a61b77e6fc37c325174/files/1.xlsx" download>اعمال سنة 1-1</a></li>
+            <li><a href="https://github.com/myoussef-cpu/My-website/tree/96ded9975690b9982a4e9a61b77e6fc37c325174/files" download>اتقل هضيف ملفات</a></li>
+            <li><a href="https://github.com/myoussef-cpu/My-website/tree/96ded9975690b9982a4e9a61b77e6fc37c325174/files" download>اتقل لسة هضيف ملفات</a></li>
+
+        </ul>
+        <button onclick="showPage('home')" id="backToHomeButton">العودة إلى الرئيسية</button>
+    </div>
+
+    <!-- صفحة البيانات -->
+    <div id="data" class="page">
+        <h2 id="dataTitle">رصد الدرجات</h2>
+        <input type="file" id="fileInput" accept=".xlsx, .xls, .csv , .pdf ">
+        <button onclick="loadFile()" id="loadFileButton">تحميل الملف</button>
+        <input type="text" id="searchInput" placeholder="ابحث في الجدول..." oninput="searchTable()">
+        <div class="table-container" id="tableContainer" style="display: none;">
+            <table id="dataTable">
+                <thead>
+                    <!-- العناوين ستضاف هنا ديناميكيًا -->
+                </thead>
+                <tbody>
+                    <!-- البيانات ستضاف هنا ديناميكيًا -->
+                </tbody>
+            </table>
+        </div>
+        <label for="filename" id="filenameLabel">اسم الملف:</label>
+        <input type="text" id="filename" placeholder="أدخل اسم الملف">
+        <button onclick="exportToExcel()" id="exportButton" style="display: none;">تصدير إلى Excel</button>
+        <button onclick="showPage('home')" id="backToHomeButton2">العودة إلى الرئيسية</button>
+    </div>
+
+    <!-- صفحة الحضور والغياب -->
+    <div id="attendance" class="page">
+        <h2 id="attendanceTitle">إدارة الحضور والغياب</h2>
+        <input type="file" id="attendanceFileInput" accept=".xlsx, .xls, .csv">
+        <button onclick="loadAttendanceFile()" id="loadAttendanceFileButton">تحميل ملف الحضور</button>
+        <input type="text" id="attendanceSearchInput" placeholder="ابحث في الجدول..." oninput="searchAttendanceTable()">
+        <div class="table-container" id="attendanceTableContainer" style="display: none;">
+            <table id="attendanceTable">
+                <thead>
+                    <!-- العناوين ستضاف هنا ديناميكيًا -->
+                </thead>
+                <tbody>
+                    <!-- البيانات ستضاف هنا ديناميكيًا -->
+                </tbody>
+            </table>
+        </div>
+        <label for="attendanceFilename" id="attendanceFilenameLabel">اسم الملف:</label>
+        <input type="text" id="attendanceFilename" placeholder="أدخل اسم الملف">
+        <button onclick="exportAttendanceToExcel()" id="exportAttendanceButton" style="display: none;">تصدير إلى Excel</button>
+        <button onclick="showPage('home')" id="backToHomeButton4">العودة إلى الرئيسية</button>
+    </div>
+
+    <!-- صفحة التعليمات -->
+    <div id="instructions" class="page">
+        <h2 id="instructionsTitle">تعليمات الاستخدام</h2>
+        <ol id="instructionsList">
+            <li>اختر الملف المراد التعديل عليه.</li>
+            <li>ادخل اسم الملف (الفصل والمادة) بعد الانتهاء من ادخال البيانات.</li>
+            <li>قم بالتصدير الى اكسيل.</li>
+            <li>ستجد الملف في مجلد <b>Download</b> على الهاتف.</li>
+            <li>بعد الانتهاء من الرصد، أرسل الملف إلى أ.يوسف عبر الواتس.
+                <i class="fab fa-whatsapp whatsapp-icon" onclick="window.open('https://wa.me/+2001015907197', '_blank')"></i>
+            </li>
+        </ol>
+        <button onclick="showPage('home')" id="backToHomeButton3">العودة إلى الرئيسية</button>
+    </div>
+
+    <!-- صفحة الإعدادات -->
+    <div id="settings" class="page">
+        <h2 id="settingsTitle">الإعدادات</h2>
+        <label for="themeColor">لون الثيم:</label>
+        <input type="color" id="themeColor" value="#2d23bd">
+        <label for="fontSize">حجم الخط:</label>
+        <select id="fontSize">
+            <option value="14px">صغير</option>
+            <option value="16px">متوسط</option>
+            <option value="18px">كبير</option>
+        </select>
+        <div class="settings-buttons">
+            <button onclick="resetSettings()">
+                <i class="fas fa-undo"></i> إعادة ضبط الإعدادات
+            </button>
+            <button onclick="setMobileLayout()">
+                <i class="fas fa-mobile-alt"></i> وضع الهاتف
+            </button>
+            <button onclick="setDesktopLayout()">
+                <i class="fas fa-desktop"></i> وضع الحاسوب
+            </button>
+        </div>
+        <button onclick="saveSettings()">
+            <i class="fas fa-save"></i> حفظ التغييرات
+        </button>
+        <button onclick="showPage('home')">العودة إلى الرئيسية</button>
+    </div>
+
+    <footer>
+        مع تحيات أ. يوسف
+    </footer>
+
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script>
+        const translations = {
+            ar: {
+                title: "نظام رصد أعمال السنة",
+                homeLinkText: "الرئيسية",
+                filesLinkText: "الملفات",
+                dataLinkText: "اعمال السنة",
+                attendanceLinkText: "الحضور والغياب",
+                instructionsLinkText: "التعليمات",
+                homeTitle: "مرحبا بك في نظام رصد أعمال السنة",
+                homeDescription: "هذا النظام يسمح لك برصد درجات الطلاب وتصديرها إلى ملفات Excel بسهولة.",
+                browseFilesButton: "تصفح الملفات",
+                filesTitle: "قائمة الملفات المتاحة",
+                backToHomeButton: "العودة إلى الرئيسية",
+                dataTitle: "إدارة البيانات",
+                loadFileButton: "تحميل الملف",
+                filenameLabel: "اسم الملف:",
+                exportButton: "تصدير إلى Excel",
+                attendanceTitle: "إدارة الحضور والغياب",
+                loadAttendanceFileButton: "تحميل ملف الحضور",
+                attendanceFilenameLabel: "اسم الملف:",
+                exportAttendanceButton: "تصدير إلى Excel",
+                instructionsTitle: "تعليمات الاستخدام",
+                instructionsList: `
+                    <li>اختر الملف المراد التعديل عليه.</li>
+                    <li>ادخل اسم الملف (الفصل والمادة) بعد الانتهاء من ادخال البيانات.</li>
+                    <li>قم بالتصدير الى اكسيل.</li>
+                    <li>ستجد الملف في مجلد <b>Download</b> على الهاتف.</li>
+                    <li>بعد الانتهاء من الرصد، أرسل الملف إلى أ. إبراهيم محمدين عبر الواتس.
+                        <i class="fab fa-whatsapp whatsapp-icon" onclick="window.open('https://wa.me/رقم_الهاتف', '_blank')"></i>
+                    </li>
+                `,
+                settingsTitle: "الإعدادات",
+                backToHomeButton2: "العودة إلى الرئيسية",
+                backToHomeButton3: "العودة إلى الرئيسية",
+                backToHomeButton4: "العودة إلى الرئيسية"
+            },
+            en: {
+                title: "Year Work Tracking System",
+                homeLinkText: "Home",
+                filesLinkText: "Files",
+                dataLinkText: "Data",
+                attendanceLinkText: "Attendance",
+                instructionsLinkText: "Instructions",
+                homeTitle: "Welcome to the Year Work Tracking System",
+                homeDescription: "This system allows you to track student grades and export them to Excel files easily.",
+                browseFilesButton: "Browse Files",
+                filesTitle: "Available Files List",
+                backToHomeButton: "Back to Home",
+                dataTitle: "Data Management",
+                loadFileButton: "Load File",
+                filenameLabel: "File Name:",
+                exportButton: "Export to Excel",
+                attendanceTitle: "Attendance Management",
+                loadAttendanceFileButton: "Load Attendance File",
+                attendanceFilenameLabel: "File Name:",
+                exportAttendanceButton: "Export to Excel",
+                instructionsTitle: "Usage Instructions",
+                instructionsList: `
+                    <li>Select the file you want to edit.</li>
+                    <li>Enter the file name (class and subject) after entering the data.</li>
+                    <li>Export to Excel.</li>
+                    <li>You will find the file in the <b>Download</b> folder on your phone.</li>
+                    <li>After tracking, send the file to Mr. Ibrahim Mohamedein via WhatsApp.
+                        <i class="fab fa-whatsapp whatsapp-icon" onclick="window.open('https://wa.me/phone_number', '_blank')"></i>
+                    </li>
+                `,
+                settingsTitle: "Settings",
+                backToHomeButton2: "Back to Home",
+                backToHomeButton3: "Back to Home",
+                backToHomeButton4: "Back to Home"
+            }
+        };
+
+        // تبديل الصفحات
+        function showPage(pageId) {
+            // إخفاء جميع الصفحات
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // إظهار الصفحة المطلوبة
+            document.getElementById(pageId).classList.add('active');
+
+            // إضافة اللون الأصفر للصفحة المفتوحة
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`a[onclick="showPage('${pageId}')"]`).classList.add('active');
+        }
+
+        // تحميل الملف وعرض البيانات
+        function loadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (!file) {
+                alert("الرجاء اختيار ملف أولاً.");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: "" });
+
+                const table = document.getElementById('dataTable');
+                const tableHead = table.querySelector('thead');
+                const tableBody = table.querySelector('tbody');
+
+                // مسح البيانات القديمة
+                tableHead.innerHTML = '';
+                tableBody.innerHTML = '';
+
+                // إضافة العناوين
+                if (jsonData.length > 0) {
+                    const headerRow = document.createElement('tr');
+                    jsonData[0].forEach(header => {
+                        const th = document.createElement('th');
+                        th.textContent = header || "";
+                        headerRow.appendChild(th);
+                    });
+                    tableHead.appendChild(headerRow);
+                }
+
+                // إضافة البيانات
+                jsonData.slice(1).forEach(row => {
+                    const tr = document.createElement('tr');
+                    row.forEach(cell => {
+                        const td = document.createElement('td');
+                        td.contentEditable = true;
+                        td.textContent = cell || "";
+                        tr.appendChild(td);
+                    });
+                    tableBody.appendChild(tr);
+                });
+
+                // إظهار الجدول وزر التصدير
+                document.getElementById('tableContainer').style.display = 'block';
+                document.getElementById('exportButton').style.display = 'block';
+
+                // حفظ البيانات
+                saveTableToLocalStorage();
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        // حفظ البيانات في Local Storage
+        function saveTableToLocalStorage() {
+            const table = document.getElementById('dataTable');
+            const rows = table.querySelectorAll('tr');
+            const data = [];
+
+            rows.forEach(row => {
+                const rowData = [];
+                row.querySelectorAll('th, td').forEach(cell => {
+                    rowData.push(cell.textContent);
+                });
+                data.push(rowData);
+            });
+
+            localStorage.setItem('tableData', JSON.stringify(data));
+        }
+
+        // استعادة البيانات من Local Storage
+        function loadTableFromLocalStorage() {
+            const table = document.getElementById('dataTable');
+            const tableHead = table.querySelector('thead');
+            const tableBody = table.querySelector('tbody');
+            const savedData = localStorage.getItem('tableData');
+
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                tableHead.innerHTML = '';
+                tableBody.innerHTML = '';
+
+                // إضافة العناوين
+                if (data.length > 0) {
+                    const headerRow = document.createElement('tr');
+                    data[0].forEach(header => {
+                        const th = document.createElement('th');
+                        th.textContent = header;
+                        headerRow.appendChild(th);
+                    });
+                    tableHead.appendChild(headerRow);
+                }
+
+                // إضافة البيانات
+                data.slice(1).forEach(row => {
+                    const tr = document.createElement('tr');
+                    row.forEach(cell => {
+                        const td = document.createElement('td');
+                        td.contentEditable = true;
+                        td.textContent = cell;
+                        tr.appendChild(td);
+                    });
+                    tableBody.appendChild(tr);
+                });
+
+                // إظهار الجدول وزر التصدير
+                document.getElementById('tableContainer').style.display = 'block';
+                document.getElementById('exportButton').style.display = 'block';
+            }
+        }
+
+        // تصدير الجدول إلى Excel
+        function exportToExcel() {
+            const table = document.getElementById('dataTable');
+            const filenameInput = document.getElementById('filename');
+            let filename = filenameInput.value.trim();
+
+            if (!filename) {
+                filename = "البيانات";
+            }
+
+            const workbook = XLSX.utils.book_new();
+            const worksheet = XLSX.utils.table_to_sheet(table);
+            XLSX.utils.book_append_sheet(workbook, worksheet, "البيانات");
+            XLSX.writeFile(workbook, `${filename}.xlsx`);
+        }
+
+        // تحميل ملف الحضور وعرض البيانات
+        function loadAttendanceFile() {
+            const fileInput = document.getElementById('attendanceFileInput');
+            const file = fileInput.files[0];
+            if (!file) {
+                alert("الرجاء اختيار ملف أولاً.");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: "" });
+
+                const table = document.getElementById('attendanceTable');
+                const tableHead = table.querySelector('thead');
+                const tableBody = table.querySelector('tbody');
+
+                // مسح البيانات القديمة
+                tableHead.innerHTML = '';
+                tableBody.innerHTML = '';
+
+                // إضافة العناوين
+                if (jsonData.length > 0) {
+                    const headerRow = document.createElement('tr');
+                    jsonData[0].forEach(header => {
+                        const th = document.createElement('th');
+                        th.textContent = header || "";
+                        headerRow.appendChild(th);
+                    });
+                    tableHead.appendChild(headerRow);
+                }
+
+                // إضافة البيانات (بدون checkboxes)
+                jsonData.slice(1).forEach(row => {
+                    const tr = document.createElement('tr');
+                    row.forEach(cell => {
+                        const td = document.createElement('td');
+                        td.contentEditable = true; // جعل الخلايا قابلة للتعديل
+                        td.textContent = cell || "";
+                        tr.appendChild(td);
+                    });
+                    tableBody.appendChild(tr);
+                });
+
+                // إظهار الجدول وزر التصدير
+                document.getElementById('attendanceTableContainer').style.display = 'block';
+                document.getElementById('exportAttendanceButton').style.display = 'block';
+
+                // حفظ البيانات
+                saveAttendanceTableToLocalStorage();
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        // حفظ بيانات الحضور في Local Storage
+        function saveAttendanceTableToLocalStorage() {
+            const table = document.getElementById('attendanceTable');
+            const rows = table.querySelectorAll('tr');
+            const data = [];
+
+            rows.forEach(row => {
+                const rowData = [];
+                row.querySelectorAll('th, td').forEach(cell => {
+                    rowData.push(cell.textContent);
+                });
+                data.push(rowData);
+            });
+
+            localStorage.setItem('attendanceTableData', JSON.stringify(data));
+        }
+
+        // استعادة بيانات الحضور من Local Storage
+        function loadAttendanceTableFromLocalStorage() {
+            const table = document.getElementById('attendanceTable');
+            const tableHead = table.querySelector('thead');
+            const tableBody = table.querySelector('tbody');
+            const savedData = localStorage.getItem('attendanceTableData');
+
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                tableHead.innerHTML = '';
+                tableBody.innerHTML = '';
+
+                // إضافة العناوين
+                if (data.length > 0) {
+                    const headerRow = document.createElement('tr');
+                    data[0].forEach(header => {
+                        const th = document.createElement('th');
+                        th.textContent = header;
+                        headerRow.appendChild(th);
+                    });
+                    tableHead.appendChild(headerRow);
+                }
+
+                // إضافة البيانات (بدون checkboxes)
+                data.slice(1).forEach(row => {
+                    const tr = document.createElement('tr');
+                    row.forEach(cell => {
+                        const td = document.createElement('td');
+                        td.contentEditable = true; // جعل الخلايا قابلة للتعديل
+                        td.textContent = cell;
+                        tr.appendChild(td);
+                    });
+                    tableBody.appendChild(tr);
+                });
+
+                // إظهار الجدول وزر التصدير
+                document.getElementById('attendanceTableContainer').style.display = 'block';
+                document.getElementById('exportAttendanceButton').style.display = 'block';
+            }
+        }
+
+        // تصدير جدول الحضور إلى Excel
+        function exportAttendanceToExcel() {
+            const table = document.getElementById('attendanceTable');
+            const filenameInput = document.getElementById('attendanceFilename');
+            let filename = filenameInput.value.trim();
+
+            if (!filename) {
+                filename = "حضور_غياب";
+            }
+
+            const workbook = XLSX.utils.book_new();
+            const worksheet = XLSX.utils.table_to_sheet(table);
+            XLSX.utils.book_append_sheet(workbook, worksheet, "الحضور والغياب");
+            XLSX.writeFile(workbook, `${filename}.xlsx`);
+        }
+
+        // البحث السريع في جدول الحضور
+        function searchAttendanceTable() {
+            const input = document.getElementById('attendanceSearchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#attendanceTable tbody tr');
+
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                let found = false;
+                cells.forEach(cell => {
+                    if (cell.textContent.toLowerCase().includes(input)) {
+                        found = true;
+                    }
+                });
+                row.style.display = found ? '' : 'none';
+            });
+        }
+
+        // تطبيق الإعدادات
+        function applySettings() {
+            const themeColor = document.getElementById('themeColor').value;
+            const fontSize = document.getElementById('fontSize').value;
+
+            document.documentElement.style.setProperty('--theme-color', themeColor);
+            document.body.style.fontSize = fontSize;
+
+            localStorage.setItem('themeColor', themeColor);
+            localStorage.setItem('fontSize', fontSize);
+        }
+
+        // تحديث النصوص بناءً على اللغة
+        function updateTexts(language) {
+            const texts = translations[language];
+            document.getElementById('title').textContent = texts.title;
+            document.getElementById('homeLinkText').textContent = texts.homeLinkText;
+            document.getElementById('filesLinkText').textContent = texts.filesLinkText;
+            document.getElementById('dataLinkText').textContent = texts.dataLinkText;
+            document.getElementById('attendanceLinkText').textContent = texts.attendanceLinkText;
+            document.getElementById('instructionsLinkText').textContent = texts.instructionsLinkText;
+            document.getElementById('homeTitle').textContent = texts.homeTitle;
+            document.getElementById('homeDescription').textContent = texts.homeDescription;
+            document.getElementById('browseFilesButton').textContent = texts.browseFilesButton;
+            document.getElementById('filesTitle').textContent = texts.filesTitle;
+            document.getElementById('backToHomeButton').textContent = texts.backToHomeButton;
+            document.getElementById('dataTitle').textContent = texts.dataTitle;
+            document.getElementById('loadFileButton').textContent = texts.loadFileButton;
+            document.getElementById('filenameLabel').textContent = texts.filenameLabel;
+            document.getElementById('exportButton').textContent = texts.exportButton;
+            document.getElementById('attendanceTitle').textContent = texts.attendanceTitle;
+            document.getElementById('loadAttendanceFileButton').textContent = texts.loadAttendanceFileButton;
+            document.getElementById('attendanceFilenameLabel').textContent = texts.attendanceFilenameLabel;
+            document.getElementById('exportAttendanceButton').textContent = texts.exportAttendanceButton;
+            document.getElementById('instructionsTitle').textContent = texts.instructionsTitle;
+            document.getElementById('instructionsList').innerHTML = texts.instructionsList;
+            document.getElementById('settingsTitle').textContent = texts.settingsTitle;
+            document.getElementById('backToHomeButton2').textContent = texts.backToHomeButton2;
+            document.getElementById('backToHomeButton3').textContent = texts.backToHomeButton3;
+            document.getElementById('backToHomeButton4').textContent = texts.backToHomeButton4;
+        }
+
+        // حفظ التغييرات
+        function saveSettings() {
+            applySettings();
+            alert('تم حفظ التغييرات بنجاح!');
+        }
+
+        // إعادة ضبط الإعدادات
+        function resetSettings() {
+            localStorage.removeItem('themeColor');
+            localStorage.removeItem('fontSize');
+            localStorage.removeItem('language');
+            location.reload();
+        }
+
+        // تغيير الأبعاد للهواتف
+        function setMobileLayout() {
+            document.body.style.maxWidth = '1000px';
+            document.body.style.margin = '0 auto';
+        }
+
+        // تغيير الأبعاد للحواسيب
+        function setDesktopLayout() {
+            document.body.style.maxWidth = '1200px';
+            document.body.style.margin = '0 auto';
+        }
+
+        // البحث السريع في الجدول
+        function searchTable() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#dataTable tbody tr');
+
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                let found = false;
+                cells.forEach(cell => {
+                    if (cell.textContent.toLowerCase().includes(input)) {
+                        found = true;
+                    }
+                });
+                row.style.display = found ? '' : 'none';
+            });
+        }
+
+        // استعادة الإعدادات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function () {
+            loadTableFromLocalStorage();
+            loadAttendanceTableFromLocalStorage();
+
+            const savedThemeColor = localStorage.getItem('themeColor') || '#2d23bd';
+            const savedFontSize = localStorage.getItem('fontSize') || '16px';
+
+            document.documentElement.style.setProperty('--theme-color', savedThemeColor);
+            document.body.style.fontSize = savedFontSize;
+
+            document.getElementById('themeColor').value = savedThemeColor;
+            document.getElementById('fontSize').value = savedFontSize;
+
+            // إظهار الصفحة الرئيسية عند التحميل
+            showPage('home');
+        });
+
+        // حفظ البيانات عند التعديل
+        document.getElementById('dataTable').addEventListener('input', function () {
+            saveTableToLocalStorage();
+        });
+
+        document.getElementById('attendanceTable').addEventListener('input', function () {
+            saveAttendanceTableToLocalStorage();
+        });
+
+        // تطبيق الإعدادات عند التغيير
+        document.getElementById('themeColor').addEventListener('change', applySettings);
+        document.getElementById('fontSize').addEventListener('change', applySettings);
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .register("/Students/service-worker.js") // المسار الكامل لملف Service Worker
+      .then(() => console.log("تم تسجيل Service Worker بنجاح"))
+      .catch((err) => console.error("فشل تسجيل Service Worker:", err));
+  };
+        function showPageAndRedirect(page) {
+    // يمكنك تنفيذ أي عمليات إضافية هنا قبل التوجيه
+    console.log("تم النقر على: " + page);
+
+    // توجيه المستخدم إلى الملف المطلوب
+    if (page === 'google') {
+        window.location.href = 'google.html';
+    }
+}
+   </script> 
+</body>
+</html>

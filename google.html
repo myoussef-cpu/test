@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رصد الدرجات عبر Google Drive</title>
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            text-align: right;
+        }
+        h2 {
+            color: #2d23bd;
+        }
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: bold;
+        }
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #2d23bd;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #1a1a8a;
+        }
+        iframe {
+            width: 110%;
+            height: 100vh;
+            border: none;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            white-space: nowrap; /* Add this line */
+        }
+        .message {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" style="display: block; margin-bottom: 20px;">العودة إلى الصفحة الرئيسية</a>
+    <h2>رصد الدرجات عبر Google Drive</h2>
+    <div id="googleDriveForm">
+        <label for="subject">اختر المادة:</label>
+        <select id="subject" onchange="loadGrades()">
+            <option value="">-- اختر المادة --</option>
+            <option value="math">الرياضيات</option>
+            <option value="science">العلوم</option>
+            <option value="arabic">اللغة العربية</option>
+            <option value="english">اللغة الإنجليزية</option>
+            <option value="social">الدراسات الاجتماعية</option>
+        </select>
+        <label for="grade">اختر الصف:</label>
+        <select id="grade" onchange="loadClasses()">
+            <option value="">-- اختر الصف --</option>
+        </select>
+        <label for="class">اختر الفصل:</label>
+        <select id="class" onchange="showPasswordField()">
+            <option value="">-- اختر الفصل --</option>
+        </select>
+        <div id="passwordField" style="display: none;">
+            <label for="password">كلمة المرور:</label>
+            <input type="password" id="password" placeholder="أدخل كلمة المرور">
+            <button onclick="authenticateGoogleDrive()"> اعرض الملف -ويندوز- </button>
+            <button onclick="openInNewTab()">افتح الملف علي االاندوريد</button> <!-- New button -->
+        </div>
+    </div>
+    <div id="errorMessage" class="message">كلمة المرور غير صحيحة!</div>
+    <div id="googleDriveContent" style="display: none;">
+        <a href="#" onclick="goBack()">العودة للصفحة السابقة</a>
+        <iframe id="googleDriveIframe" src="" allowfullscreen scrolling="yes" sandbox="allow-scripts allow-same-origin"allow="autoplay; fullscreen; clipboard-write; clipboard-read"></iframe>
+    </div>
+    <script>
+        let passwords = {};
+        let googleDriveLinks = {};
+
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                passwords = data.passwords;
+                googleDriveLinks = data.googleDriveLinks;
+            });
+
+        function loadGrades() {
+            const subject = document.getElementById("subject").value;
+            const gradeSelect = document.getElementById("grade");
+            gradeSelect.innerHTML = '<option value="">-- اختر الصف --</option>';
+            if (subject) {
+                gradeSelect.innerHTML += `
+                    <option value="grade1">الصف الأول</option>
+                    <option value="grade2">الصف الثاني</option>
+                    <option value="grade3">الصف الثالث</option>
+                `;
+            }
+        }
+
+        function loadClasses() {
+            const grade = document.getElementById("grade").value;
+            const classSelect = document.getElementById("class");
+            classSelect.innerHTML = '<option value="">-- اختر الفصل --</option>';
+            if (grade) {
+                for (let i = 1; i <= 6; i++) {
+                    classSelect.innerHTML += `<option value="class${i}">الفصل ${i}</option>`;
+                }
+                document.getElementById("passwordField").style.display = "block";
+            } else {
+                document.getElementById("passwordField").style.display = "none";
+            }
+        }
+
+        function authenticateGoogleDrive() {
+            const subject = document.getElementById("subject").value;
+            const grade = document.getElementById("grade").value;
+            const classSelect = document.getElementById("class").value;
+            const password = document.getElementById("password").value;
+
+            if (passwords[subject] && passwords[subject][grade] && passwords[subject][grade][classSelect] === password) {
+                document.getElementById("errorMessage").style.display = "none";
+                document.getElementById("googleDriveContent").style.display = "block";
+                document.getElementById("googleDriveForm").style.display = "none"; // Hide the form
+                loadGoogleDriveIframe(subject, grade, classSelect);
+            } else {
+                document.getElementById("errorMessage").style.display = "block";
+            }
+        }
+
+        function loadGoogleDriveIframe(subject, grade, classSelect) {
+            if (googleDriveLinks[subject] && googleDriveLinks[subject][grade] && googleDriveLinks[subject][grade][classSelect]) {
+                const link = googleDriveLinks[subject][grade][classSelect];
+                document.getElementById("googleDriveIframe").src = link;
+            } else {
+                alert("رابط Google Drive غير متوفر لهذا الفصل.");
+            }
+        }
+
+        function openInNewTab() {
+            const subject = document.getElementById("subject").value;
+            const grade = document.getElementById("grade").value;
+            const classSelect = document.getElementById("class").value;
+            const password = document.getElementById("password").value;
+
+            if (passwords[subject] && passwords[subject][grade] && passwords[subject][grade][classSelect] === password) {
+                const link = googleDriveLinks[subject][grade][classSelect];
+                window.open(link, '_blank');
+            } else {
+                document.getElementById("errorMessage").style.display = "block";
+            }
+        }
+
+        function goBack() {
+            document.getElementById("googleDriveContent").style.display = "none";
+            document.getElementById("googleDriveForm").style.display = "block";
+        }
+        if (page === 'data.json') {
+        window.location.href = 'data.json';
+    }
+    </script>
+</body>
+</html>

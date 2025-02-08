@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الجدول المدرسي</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: right;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        nav a:hover {
+            background-color: #575757;
+        }
+        .content {
+            padding: 20px;
+        }
+        .pdf-viewer {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>الجدول المدرسي</h1>
+    </header>
+
+    <nav>
+        <a href="#general">الجدول العام</a>
+        <a href="#classes">جدول الفصول</a>
+        <a href="#teachers">جدول المعلمين</a>
+        <a href="#supervision">جدول الإشراف</a>
+    </nav>
+
+    <div class="content" id="content">
+        <!-- سيتم عرض ملف PDF هنا -->
+    </div>
+
+    <script>
+        const pdfFiles = {
+            general: 'العام.pdf',
+            classes: 'الفصول.pdf',
+            teachers: 'المعلمين.pdf',
+            supervision: 'الاشراف.pdf'
+        };
+
+        const contentDiv = document.getElementById('content');
+
+        function loadPdf(file) {
+            contentDiv.innerHTML = `
+                <iframe class="pdf-viewer" src="${file}"></iframe>
+                <a href="index.html" class="back-link">العودة إلى الصفحة الرئيسية</a>
+            `;
+        }
+
+        document.querySelector('nav').addEventListener('click', (event) => {
+            event.preventDefault();
+            const target = event.target.getAttribute('href').substring(1);
+            if (pdfFiles[target]) {
+                loadPdf(pdfFiles[target]);
+            }
+        });
+
+        // تحميل الجدول العام افتراضيًا عند فتح الصفحة
+        loadPdf(pdfFiles.general);
+    </script>
+
+</body>
+</html>
