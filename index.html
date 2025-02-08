@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -29,6 +29,64 @@
             text-align: right;
             animation: fadeIn 1s ease-in-out;
             overflow-x: hidden; /* منع التمرير الأفقي للصفحة */
+        }
+            /* صفحة تسجيل الدخول */
+            #loginPage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--theme-color), #6e569b);
+        }
+
+        #loginForm {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        #loginForm h2 {
+            margin-bottom: 20px;
+            color: var(--theme-color);
+        }
+
+        #loginForm label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        #loginForm select, #loginForm input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+        }
+
+        #loginForm button {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--theme-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        #loginForm button:hover {
+            background-color: #208a30;
+        }
+
+        /* إخفاء المحتوى الرئيسي حتى يتم تسجيل الدخول */
+        #mainContent {
+            display: none;
         }
 
         /* التصميم العام للرأس */
@@ -61,6 +119,15 @@
 
         .settings-icon:hover {
             transform: rotate(90deg);
+        }
+        .fa-sign-out-alt {
+            position: absolute;
+            top: 20px;
+            left: 100px;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
         /* التصميم العام للتنقل */
@@ -101,6 +168,10 @@
         nav a.active {
             background-color: rgba(255, 255, 255, 0.2);
             color: #eedf09;
+        }
+          /* إخفاء الروابط للطلاب */
+          #filesLink, #dataLink, #attendanceLink, #googleLink {
+            display: none;
         }
 
         /* التصميم العام للصفحات */
@@ -399,33 +470,51 @@
     </style>
 </head>
 <body>
-    <header>
-        <i class="fas fa-cog settings-icon" onclick="showPage('settings')"></i>
-        <h1 id="title">منصة شؤون الطلاب</h1>
-    </header>
-    <nav>
-        <a onclick="showPage('home')" class="nav-link active">
-            <i class="fas fa-home"></i> <span id="homeLinkText">الرئيسية</span>
-        </a>
-        <a onclick="showPage('files')" class="nav-link">
-            <i class="fas fa-file"></i> <span id="filesLinkText">الملفات</span>
-        </a>
-        <a onclick="showPage('data')" class="nav-link">
-            <i class="fas fa-table"></i> <span id="dataLinkText">رصد الدرجات</span>
-        </a>
-        <a onclick="showPage('attendance')" class="nav-link">
-            <i class="fas fa-calendar-check"></i> <span id="attendanceLinkText">الحضور والغياب</span>
-        </a>
-         <a onclick="showPageAndRedirect('google')" class="nav-link">
-    <i class="fas fa-info-circle"></i> <span id="googleLinkText">رصد الدرجات عبر Google Drive</span>
-       </a>
-       <a href="schedule.html"><i class="fas fa-info-circle"></i> الجداول المدرسية</a>
-       <a href="result.html"><i class="fas fa-info-circle"></i> نتائج الامتحانات</a>
-        <a onclick="showPage('instructions')" class="nav-link">
-            <i class="fas fa-info-circle"></i> <span id="instructionsLinkText">التعليمات</span>
-        </a>
-   </a>
-    </nav>
+      <!-- صفحة تسجيل الدخول -->
+      <div id="loginPage">
+        <div id="loginForm">
+            <h2>تسجيل الدخول</h2>
+            <label for="userRole">حدد هويتك:</label>
+            <select id="userRole">
+                <option value="student">طالب</option>
+                <option value="teacher">معلم</option>
+            </select>
+            <div id="passwordField" style="display: none;">
+                <label for="password">كلمة المرور:</label>
+                <input type="password" id="password" placeholder="أدخل كلمة المرور">
+            </div>
+            <button onclick="login()">دخول</button>
+        </div>
+    </div>
+     <!-- المحتوى الرئيسي (يتم إظهاره بعد تسجيل الدخول) -->
+     <div id="mainContent">
+        <header>
+            <i class="fas fa-cog settings-icon" onclick="showPage('settings')"></i>
+            <i class="fas fa-sign-out-alt" onclick="logout()"></i> 
+            <h1 id="title">منصة شؤون الطلاب</h1>
+        </header>
+        <nav>
+            <a onclick="showPage('home')" class="nav-link active">
+                <i class="fas fa-home"></i> <span id="homeLinkText">الرئيسية</span>
+            </a>
+            <a onclick="showPage('files')" class="nav-link" id="filesLink">
+                <i class="fas fa-file"></i> <span id="filesLinkText">الملفات</span>
+            </a>
+            <a onclick="showPage('data')" class="nav-link" id="dataLink">
+                <i class="fas fa-table"></i> <span id="dataLinkText">رصد الدرجات</span>
+            </a>
+            <a onclick="showPage('attendance')" class="nav-link" id="attendanceLink">
+                <i class="fas fa-calendar-check"></i> <span id="attendanceLinkText">الحضور والغياب</span>
+            </a>
+            <a onclick="showPageAndRedirect('google')" class="nav-link" id="googleLink">
+                <i class="fas fa-info-circle"></i> <span id="googleLinkText">رصد الدرجات عبر Google Drive</span>
+            </a>
+            <a href="schedule.html"><i class="fas fa-info-circle"></i> الجداول المدرسية</a>
+            <a href="result.html"><i class="fas fa-info-circle"></i> نتائج الامتحانات</a>
+            <a onclick="showPage('instructions')" class="nav-link">
+                <i class="fas fa-info-circle"></i> <span id="instructionsLinkText">التعليمات</span>
+            </a>
+        </nav>
 
     <!-- الصفحة الرئيسية -->
     <div id="home" class="page active">
@@ -527,6 +616,9 @@
             <button onclick="setDesktopLayout()">
                 <i class="fas fa-desktop"></i> وضع الحاسوب
             </button>
+            <button onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+            </button>
         </div>
         <button onclick="saveSettings()">
             <i class="fas fa-save"></i> حفظ التغييرات
@@ -540,6 +632,78 @@
 
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
     <script>
+            // كلمة مرور المعلم (يمكن تغييرها)
+            const teacherPassword = "1234";
+
+// عرض حقل كلمة المرور إذا تم اختيار "معلم"
+document.getElementById('userRole').addEventListener('change', function () {
+    const passwordField = document.getElementById('passwordField');
+    if (this.value === 'teacher') {
+        passwordField.style.display = 'block';
+    } else {
+        passwordField.style.display = 'none';
+    }
+});
+
+// تسجيل الدخول
+function login() {
+    const userRole = document.getElementById('userRole').value;
+    const password = document.getElementById('password').value;
+
+    if (userRole === 'teacher' && password !== teacherPassword) {
+        alert("كلمة المرور غير صحيحة.");
+        return;
+    }
+
+    // حفظ حالة المستخدم
+    localStorage.setItem('userRole', userRole);
+
+    // إخفاء صفحة تسجيل الدخول وإظهار المحتوى الرئيسي
+    document.getElementById('loginPage').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+
+    // تعديل واجهة المستخدم بناءً على الهوية
+    if (userRole === 'student') {
+        document.getElementById('filesLink').style.display = 'none';
+        document.getElementById('dataLink').style.display = 'none';
+        document.getElementById('attendanceLink').style.display = 'none';
+        document.getElementById('googleLink').style.display = 'none';
+    } else if (userRole === 'teacher') {
+        document.getElementById('filesLink').style.display = 'block';
+        document.getElementById('dataLink').style.display = 'block';
+        document.getElementById('attendanceLink').style.display = 'block';
+        document.getElementById('googleLink').style.display = 'block';
+    }
+}
+
+// استدعاء الدالة عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function () {
+    const userRole = localStorage.getItem('userRole');
+    if (userRole) {
+        // إذا كان المستخدم قد سجل دخول مسبقًا، إظهار المحتوى الرئيسي
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+
+        // تعديل واجهة المستخدم بناءً على الهوية
+        if (userRole === 'student') {
+            document.getElementById('filesLink').style.display = 'none';
+            document.getElementById('dataLink').style.display = 'none';
+            document.getElementById('attendanceLink').style.display = 'none';
+            document.getElementById('googleLink').style.display = 'none';
+        } else if (userRole === 'teacher') {
+            document.getElementById('filesLink').style.display = 'block';
+            document.getElementById('dataLink').style.display = 'block';
+            document.getElementById('attendanceLink').style.display = 'block';
+            document.getElementById('googleLink').style.display = 'block';
+        }
+    }
+});
+
+// تسجيل الخروج
+function logout() {
+    localStorage.removeItem('userRole');
+    location.reload();
+}
         const translations = {
             ar: {
                 title: "نظام رصد أعمال السنة",
