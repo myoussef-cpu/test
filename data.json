@@ -1,4 +1,5 @@
 {
+    "master_password": "youssefeid",  // كلمة المرور الرئيسية
     "passwords": {
         "math": {
             "grade1": { "class1": "class11", "class2": "class12", "class3": "class13", "class4": "class14", "class5": "class15", "class6": "class16" },
